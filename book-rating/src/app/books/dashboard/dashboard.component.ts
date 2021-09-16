@@ -17,14 +17,16 @@ export class DashboardComponent implements OnInit {
         title: 'Angular',
         description: 'Grundlagen und mehr',
         price: 36.9,
-        rating: 5
+        rating: 5,
+        authors: ['Ferdinand Malcher', 'Johannes Hoppe', 'Danny Koppenhagen']
       },
       {
         isbn: '222',
         title: 'Vue.js',
         description: 'Das grüne Framework',
         price: 32.9,
-        rating: 3
+        rating: 3,
+        authors: ['Evan You']
       }
     ];
   }

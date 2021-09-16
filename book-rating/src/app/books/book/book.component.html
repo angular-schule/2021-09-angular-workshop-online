@@ -8,7 +8,16 @@
         <span class="badge badge-secondary">{{ book.rating }}</span>
       </h2>
     </div>
+    <p>
+      <ng-container *ngFor="let x of [].constructor(book.rating)">⭐️</ng-container>
+    </p>
     <p>{{ book.description }}</p>
     <p><strong>Preis:</strong> {{ book.price | currency:'EUR' }}</p>
+    <p>
+      <strong>Autoren:</strong>
+      <ng-container *ngFor="let ba of book.authors; last as l">
+        {{ ba }}<ng-container *ngIf="!l">, </ng-container>
+      </ng-container>
+    </p>
   </div>
 </div>
