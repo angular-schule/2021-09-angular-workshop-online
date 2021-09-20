@@ -21,6 +21,7 @@ export class BookComponent implements OnInit {
   /** Emits a book when user clicks "+" button */
   @Output() rateUp = new EventEmitter<Book>();
   @Output() rateDown = new EventEmitter<Book>();
+  @Output() deleteBook = new EventEmitter<Book>();
 
   constructor() { }
 
@@ -33,6 +34,10 @@ export class BookComponent implements OnInit {
 
   doRateDown() {
     this.rateDown.emit(this.book);
+  }
+
+  doDeleteBook() {
+    this.deleteBook.emit(this.book);
   }
 
   log() {

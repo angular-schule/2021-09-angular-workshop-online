@@ -34,6 +34,15 @@ export class DashboardComponent implements OnInit {
     this.updateList(ratedBook);
   }
 
+  doDeleteBook(book: Book) {
+    this.bs.deleteBook(book.isbn).subscribe(() => {
+      // nach dem Löschen: Buchliste aktualisieren
+      this.bs.getAll().subscribe(books => {
+        this.books = books;
+      });
+    });
+  }
+
   private updateList(ratedBook: Book) {
     this.books = this.books
       .map(book => book.isbn === ratedBook.isbn ? ratedBook : book);

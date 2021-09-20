@@ -1,6 +1,7 @@
 <br-book
   *ngFor="let b of books"
   [book]="b"
+  (deleteBook)="doDeleteBook($event)"
   (rateUp)="doRateUp($event)"
   (rateDown)="doRateDown(b)"></br-book>
 
