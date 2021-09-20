@@ -1,0 +1,12 @@
+<div *ngIf="book">
+  <h2>{{ book.title }}</h2>
+  <p>{{ book.description }}</p>
+</div>
+
+<hr>
+
+<!--<a [routerLink]="['/books']">Zurück</a>
+<a routerLink="/books">Zurück</a>
+<a routerLink="/">Zurück</a>-->
+<a routerLink="..">Zurück zum Dashboard</a><br>
+<a routerLink="/books/9783864907791">Zum Angular-Buch</a><br>
