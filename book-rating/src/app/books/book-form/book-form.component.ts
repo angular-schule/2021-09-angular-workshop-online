@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Book } from '../shared/book';
 
 @Component({
@@ -26,7 +26,18 @@ export class BookFormComponent implements OnInit {
         Validators.min(1),
         Validators.max(5)
       ]),
+      authors: new FormArray([
+        new FormControl('')
+      ])
     });
+  }
+
+  get authors() {
+    return this.bookForm.get('authors') as FormArray;
+  }
+
+  addAuthorField() {
+    this.authors.push(new FormControl(''));
   }
 
   isInvalid(controlName: string): boolean {
@@ -39,13 +50,15 @@ export class BookFormComponent implements OnInit {
     return !!control && control.hasError(errorCode) && control.touched;
   }
 
-  ngOnInit(): void {
-    // DEBUG
-    this.onSubmit();
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
-    this.submitForm.emit({ isbn: 'test' } as Book);
+    if (this.bookForm.invalid) {
+      this.bookForm.markAllAsTouched();
+      return;
+    }
+
+    this.submitForm.emit(this.bookForm.value);
   }
 
 }
