@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Book } from '../shared/book';
 
 @Component({
@@ -9,8 +10,17 @@ import { Book } from '../shared/book';
 export class BookFormComponent implements OnInit {
 
   @Output() submitForm = new EventEmitter<Book>();
+  bookForm: FormGroup;
 
-  constructor() { }
+  constructor() {
+    this.bookForm = new FormGroup({
+      isbn: new FormControl(''),
+      title: new FormControl(''),
+      description: new FormControl(''),
+      price: new FormControl(0),
+      rating: new FormControl(1),
+    });
+  }
 
   ngOnInit(): void {
     // DEBUG
@@ -22,3 +32,16 @@ export class BookFormComponent implements OnInit {
   }
 
 }
+
+
+/*
+  - Validierung
+  - Fehleranzeige
+  - Button
+  - Abschicken
+  - Buch erzeugen
+  - Event abschicken
+  - HTTP
+  - wegnavigieren
+  - (Autoren)
+*/
