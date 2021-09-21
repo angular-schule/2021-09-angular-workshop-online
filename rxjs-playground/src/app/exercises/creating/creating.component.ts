@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, of, from, timer, interval, ReplaySubject } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'rxw-creating',
@@ -61,6 +61,7 @@ export class CreatingComponent {
     // interval(1000)
     // timer(2000)
     timer(2000, 500).pipe(
+      startWith(0, 0, 0),
       map(e => e * 3),
       filter(e => e % 2 === 0)
     ).subscribe({
