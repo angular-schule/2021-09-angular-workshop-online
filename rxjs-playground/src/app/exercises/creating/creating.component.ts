@@ -23,7 +23,61 @@ export class CreatingComponent {
 
     /******************************/
 
-    
+    function producer(o: any) {
+      o.next(Math.random());
+      o.next(2);
+      o.next(3);
+
+      setTimeout(() => o.next(4), 3000);
+      setTimeout(() => o.complete(), 4000);
+    }
+
+    const observer = {
+      next: (e: any) => console.log(e),
+      error: (e: any) => console.error(e),
+      complete: () => console.log('C'),
+    };
+
+    // producer(observer);
+    const myObs$ = new Observable(producer);
+    /*myObs$.subscribe(observer);
+    myObs$.subscribe({
+      next: e => console.log('BBB', e)
+    });
+    myObs$.subscribe({
+      complete: () => console.log('CCCC')
+    });*/
+
+    const httpReq$ = new Observable(obs => {
+      fetch('https://api.angular.schule/books').then(res => res.json())
+        .then(data => obs.next(data))
+    })
+
+    /******************************/
+
+
+    // of('A', 'B', 'C')
+    // from([1,2,3,4,5])
+    // interval(1000)
+    // timer(2000)
+    timer(2000, 500).pipe(
+      map(e => e * 3),
+      filter(e => e % 2 === 0)
+    ).subscribe({
+      next: e => this.log(e),
+      error: e => this.log('ERROR: ' + e),
+      complete: () => this.log('COMPLETE'),
+    });
+
+    /*new Observable(obs => {
+      let i = 0;
+      setInterval(() => {
+        obs.next(i++);
+      }, 1000)
+    })*/
+
+
+
     /******************************/
   }
 
