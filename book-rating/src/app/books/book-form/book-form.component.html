@@ -3,6 +3,8 @@
   <div class="form-group">
     <label>ISBN</label>
     <input type="text" class="form-control" formControlName="isbn">
+    <div class="feedback-error" *ngIf="isInvalid('isbn')">Die ISBN ist ungültig.</div>
+    <div class="feedback-error" *ngIf="hasError('isbn', 'minlength')">Die ISBN ist zu kurz.</div>
   </div>
 
   <div class="form-group">
