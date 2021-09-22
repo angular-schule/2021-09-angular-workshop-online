@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
+import { loadBooks } from '../store/book.actions';
+import { selectAllBooks } from '../store/book.selectors';
 
 @Component({
   selector: 'br-dashboard',
@@ -11,8 +14,12 @@ import { BookStoreService } from '../shared/book-store.service';
 export class DashboardComponent implements OnInit {
   books: Book[] = [];
 
-  constructor(private rs: BookRatingService, private bs: BookStoreService) {
-    this.bs.getAll().subscribe(books => {
+  constructor(private store: Store, private rs: BookRatingService, private bs: BookStoreService) {
+    this.store.dispatch(loadBooks());
+
+    // TODO: AsyncPipe
+    this.store.select(selectAllBooks)
+    .subscribe(books => {
       this.books = books;
     },
     err => {

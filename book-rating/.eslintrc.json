@@ -16,7 +16,8 @@
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:ngrx/recommended"
       ],
       "rules": {
         "@angular-eslint/no-empty-lifecycle-method": "off",
@@ -36,7 +37,10 @@
             "style": "kebab-case"
           }
         ]
-      }
+      },
+      "plugins": [
+        "ngrx"
+      ]
     },
     {
       "files": [
