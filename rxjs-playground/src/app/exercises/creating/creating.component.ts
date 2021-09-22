@@ -30,6 +30,12 @@ export class CreatingComponent {
 
       setTimeout(() => o.next(4), 3000);
       setTimeout(() => o.complete(), 4000);
+      const myInterval = setInterval(() => o.next('X', 500));
+
+      // Teardown Logic
+      return () => {
+        clearInterval(myInterval);
+      };
     }
 
     const observer = {
@@ -38,9 +44,11 @@ export class CreatingComponent {
       complete: () => console.log('C'),
     };
 
-    // producer(observer);
     const myObs$ = new Observable(producer);
+
+    // producer(observer);
     /*myObs$.subscribe(observer);
+
     myObs$.subscribe({
       next: e => console.log('BBB', e)
     });
@@ -48,10 +56,10 @@ export class CreatingComponent {
       complete: () => console.log('CCCC')
     });*/
 
-    const httpReq$ = new Observable(obs => {
+    /*const httpReq$ = new Observable(obs => {
       fetch('https://api.angular.schule/books').then(res => res.json())
         .then(data => obs.next(data))
-    })
+    })*/
 
     /******************************/
 
@@ -61,7 +69,6 @@ export class CreatingComponent {
     // interval(1000)
     // timer(2000)
     timer(2000, 500).pipe(
-      startWith(0, 0, 0),
       map(e => e * 3),
       filter(e => e % 2 === 0)
     ).subscribe({

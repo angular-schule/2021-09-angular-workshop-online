@@ -21,6 +21,10 @@ export class GameScoreComponent {
 
     /******************************/
 
+    this.score$.pipe(
+      scan((acc, item) => acc + item, 0)
+    ).subscribe(score => this.currentScore = score);
+
 
     /******************************/
 

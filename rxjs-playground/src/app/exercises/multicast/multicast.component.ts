@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Subject, BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
-import { share } from 'rxjs/operators';
+import { Subject, BehaviorSubject, ReplaySubject, Observable, timer } from 'rxjs';
+import { share, take } from 'rxjs/operators';
 
 import { MeasureValuesService } from './measure-values.service';
 import { ExerciseService } from '../exercise.service';
@@ -14,11 +14,16 @@ export class MulticastComponent {
   listeners: string[] = [];
   logStream$ = new ReplaySubject<string>();
 
-  measureValues$: Observable<number>; // später: Subject<number>;
+  measureValues$: Subject<number>;
 
   constructor(private mvs: MeasureValuesService, private es: ExerciseService) {
     /**************!!**************/
-    this.measureValues$ = this.mvs.getValues();
+
+    // this.mvs.getValues().pipe(share());
+
+    this.measureValues$ = new ReplaySubject<number>(5);
+    this.mvs.getValues().subscribe(this.measureValues$);
+
     /**************!!**************/
 
   }
