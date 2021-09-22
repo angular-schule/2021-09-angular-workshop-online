@@ -3,3 +3,12 @@
     class="form-control"
     [formControl]="searchControl">
 </div>
+
+<ng-container *ngIf="results$ | async as results">
+  <h2>Ergebnisse</h2>
+  <ul>
+    <li *ngFor="let b of results">
+      {{ b.title }}
+    </li>
+  </ul>
+</ng-container>
